@@ -10,6 +10,15 @@
 #include <dt-bindings/zmk/pointing.h>
 
 / {
+    combos {
+        compatible = "zmk,combos";
+
+        bluetooth_fn {
+            bindings = <&tog 3>;
+            key-positions = <0 11>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -23,10 +32,10 @@
             //                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
 
             bindings = <
-&mt LEFT_ALT TAB  &kp Q           &kp W           &kp E                &kp R             &kp T          &kp Y    &kp U        &kp I             &kp O            &kp P               &kp BSPC
-&lt 3 ESCAPE      &mt LEFT_WIN A  &mt LEFT_ALT S  &mt LCTRL D          &mt LEFT_SHIFT F  &kp G          &kp H    &mt RSHFT J  &mt RCTRL K       &mt RIGHT_ALT L  &mt RIGHT_WIN SEMI  &kp SQT
-&kp LSHFT         &kp Z           &kp X           &kp C                &kp V             &kp B          &kp N    &kp M        &kp COMMA         &kp DOT          &kp FSLH            &kp RSHFT
-                                                  &mt LSHFT BACKSPACE  &mo 1             &lt 1 SPACE    &kp RET  &mo 2        &mt RCTRL ESCAPE
+&lt 4 TAB         &kp Q  &kp W           &kp E        &kp R            &kp T          &kp Y          &kp U            &kp I            &kp O            &kp P          &kp RIGHT_BRACE
+&mt RCTRL ESCAPE  &kp A  &mt LEFT_GUI S  &mt LCTRL D  &mt LEFT_ALT F   &kp G          &kp H          &mt RIGHT_ALT J  &mt RCTRL K      &mt RIGHT_GUI L  &kp SEMICOLON  &kp SQT
+&kp LSHFT         &kp Z  &kp X           &kp C        &kp V            &kp B          &kp N          &kp M            &kp COMMA        &kp DOT          &kp FSLH       &tog 1
+                                         &lt 4 LC(A)  &lt 2 LC(SPACE)  &lt 1 SPACE    &kp BACKSPACE  &lt 2 ENTER      &sk RIGHT_SHIFT
             >;
         };
 
@@ -40,10 +49,10 @@
             //                    | GUI |     | SPC |   | ENT |     | ALT |
 
             bindings = <
-&trans  &kp N1  &kp N2      &kp N3     &kp N4      &kp N5           &kp N6    &kp N7    &kp N8  &kp N9     &kp N0   &kp BSPC
-&trans  &kp N0  &kp DOLLAR  &kp CARET  &kp ESCAPE  &kp PG_UP        &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL  &trans
-&trans  &kp W   &kp B       &kp TAB    &kp ENTER   &kp PAGE_DOWN    &kp HOME  &kp END   &trans  &trans     &trans   &trans
-                            &trans     &trans      &trans           &trans    &trans    &trans
+&trans  &kp N1  &kp N2      &kp N3          &kp N4           &kp N5       &kp N6    &kp N7    &kp N8  &kp N9     &kp N0   &trans
+&trans  &kp N0  &kp DOLLAR  &kp CARET       &kp LC(W)        &kp LC(U)    &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL  &trans
+&trans  &kp W   &kp B       &kp LEFT_BRACE  &kp RIGHT_BRACE  &kp LC(D)    &kp HOME  &kp END   &trans  &trans     &trans   &trans
+                            &trans          &trans           &trans       &trans    &trans    &trans
             >;
         };
 
@@ -57,10 +66,10 @@
             //                    | GUI |     | SPC |   | ENT |     | ALT |
 
             bindings = <
-&trans  &kp EXCL          &kp AT             &kp HASH              &kp DLLR               &kp PRCNT    &kp CARET      &kp AMPS           &kp ASTRK         &kp LPAR       &kp RPAR          &trans
-&trans  &kp LEFT_BRACE    &kp RIGHT_BRACE    &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EQUAL    &kp COLON      &kp DOUBLE_QUOTES  &kp SINGLE_QUOTE  &kp LESS_THAN  &kp GREATER_THAN  &trans
-&trans  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp BACKSLASH         &kp PIPE               &kp PLUS     &kp SEMICOLON  &kp GRAVE          &kp TILDE         &trans         &trans            &trans
-                                             &trans                &trans                 &trans       &trans         &trans             &trans
+&trans  &kp EXCL        &kp AT           &kp HASH              &kp DLLR               &kp PRCNT    &kp CARET      &kp AMPS           &kp ASTRK         &kp TILDE      &kp GRAVE         &trans
+&trans  &kp LEFT_BRACE  &kp RIGHT_BRACE  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EQUAL    &kp COLON      &kp DOUBLE_QUOTES  &kp SINGLE_QUOTE  &kp LESS_THAN  &kp GREATER_THAN  &trans
+&trans  &kp BACKSLASH   &kp PIPE         &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PLUS     &kp SEMICOLON  &kp MINUS          &kp UNDERSCORE    &kp SLASH      &kp QUESTION      &trans
+                                         &trans                &trans                 &trans       &trans         &trans             &trans
             >;
         };
 
