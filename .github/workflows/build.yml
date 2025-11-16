@@ -1,5 +1,15 @@
 name: Build ZMK firmware
-on: [push, pull_request, workflow_dispatch]
+
+# Build on push to any branch, PRs, and manual dispatch
+# Key branches:
+#   - claude/homerow-mod-research-*: Original mod-tap implementation
+#   - claude/homerow-urob-style-*: urob's "timeless" positional homerow mods
+on:
+  push:
+    branches:
+      - '*'  # Build all branches
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
