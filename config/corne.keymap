@@ -28,21 +28,21 @@
         tmux_copy: tmux_copy {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LC(A)>;
+            bindings = <&kp LC(A)>, <&macro_wait_time 50>, <&kp LBKT>;
             label = "TMUX_COPY";
         };
 
         custom_script_1: custom_script_1 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&none>;
+            bindings = <&kp LG(LS(O))>, <&macro_wait_time 200>, <&kp N1>, <&kp COLON>, <&macro_wait_time 10>, <&kp LC(LS(V))>;
             label = "CUSTOM_SCRIPT_1";
         };
 
         custom_script_2: custom_script_2 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&none>;
+            bindings = <&kp LG(LS(O))>, <&macro_wait_time 200>, <&kp N2>, <&kp COLON>, <&macro_wait_time 10>, <&kp LC(LS(V))>;
             label = "CUSTOM_SCRIPT_2";
         };
     };
