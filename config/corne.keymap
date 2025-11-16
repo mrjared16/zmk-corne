@@ -14,8 +14,36 @@
         compatible = "zmk,combos";
 
         bluetooth_fn {
-            bindings = <&tog 3>;
+            bindings = <&sl 3>;
             key-positions = <0 11>;
+        };
+
+        gaming_toggle {
+            bindings = <&tog 5>;
+            key-positions = <24 35>;
+        };
+    };
+
+    macros {
+        tmux_copy: tmux_copy {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(A)>;
+            label = "TMUX_COPY";
+        };
+
+        custom_script_1: custom_script_1 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none>;
+            label = "CUSTOM_SCRIPT_1";
+        };
+
+        custom_script_2: custom_script_2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none>;
+            label = "CUSTOM_SCRIPT_2";
         };
     };
 
@@ -32,10 +60,10 @@
             //                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
 
             bindings = <
-&lt 4 TAB         &kp Q  &kp W           &kp E        &kp R            &kp T          &kp Y          &kp U            &kp I            &kp O            &kp P          &kp RIGHT_BRACE
-&mt RCTRL ESCAPE  &kp A  &mt LEFT_GUI S  &mt LCTRL D  &mt LEFT_ALT F   &kp G          &kp H          &mt RIGHT_ALT J  &mt RCTRL K      &mt RIGHT_GUI L  &kp SEMICOLON  &kp SQT
-&kp LSHFT         &kp Z  &kp X           &kp C        &kp V            &kp B          &kp N          &kp M            &kp COMMA        &kp DOT          &kp FSLH       &tog 1
-                                         &lt 4 LC(A)  &lt 2 LC(SPACE)  &lt 1 SPACE    &kp BACKSPACE  &lt 2 ENTER      &sk RIGHT_SHIFT
+&lt 4 TAB         &kp Q  &kp W           &kp E            &kp R           &kp T          &kp Y          &kp U            &kp I            &kp O            &kp P          &kp DELETE
+&mt RCTRL ESCAPE  &kp A  &mt LEFT_GUI S  &mt LCTRL D      &mt LEFT_ALT F  &kp G          &kp H          &mt RIGHT_ALT J  &mt RCTRL K      &mt RIGHT_GUI L  &kp SEMICOLON  &kp SQT
+&kp LSHFT         &kp Z  &kp X           &kp C            &kp V           &kp B          &kp N          &kp M            &kp COMMA        &kp DOT          &kp FSLH       &tog 1
+                                         &lt 4 LC(SPACE)  &lt 2 LC(A)     &lt 1 SPACE    &kp BACKSPACE  &lt 2 ENTER      &sk RIGHT_SHIFT
             >;
         };
 
@@ -49,10 +77,10 @@
             //                    | GUI |     | SPC |   | ENT |     | ALT |
 
             bindings = <
-&trans  &kp N1  &kp N2      &kp N3          &kp N4           &kp N5       &kp N6    &kp N7    &kp N8  &kp N9     &kp N0   &trans
-&trans  &kp N0  &kp DOLLAR  &kp CARET       &kp LC(W)        &kp LC(U)    &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp DEL  &trans
-&trans  &kp W   &kp B       &kp LEFT_BRACE  &kp RIGHT_BRACE  &kp LC(D)    &kp HOME  &kp END   &trans  &trans     &trans   &trans
-                            &trans          &trans           &trans       &trans    &trans    &trans
+&trans  &kp N1  &kp N2      &kp N3          &kp N4           &kp N5       &kp N6     &kp N7            &kp N8            &kp N9     &kp N0   &trans
+&trans  &kp N0  &kp DOLLAR  &kp CARET       &tmux_copy       &kp LC(U)    &kp LEFT   &kp DOWN          &kp UP            &kp RIGHT  &kp DEL  &kp HOME
+&trans  &kp W   &kp B       &kp LEFT_BRACE  &kp RIGHT_BRACE  &kp LC(D)    &kp LC(W)  &custom_script_1  &custom_script_2  &trans     &trans   &kp END
+                            &trans          &trans           &trans       &trans     &trans            &trans
             >;
         };
 
@@ -88,6 +116,15 @@
 &trans  &trans  &trans  &trans  &trans  &trans    &msc SCRL_DOWN  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &mkp LCLK       &mkp RCLK       &trans          &trans           &trans  &trans
                         &trans  &trans  &trans    &trans          &trans          &trans
+            >;
+        };
+
+        layer_5 {
+            bindings = <
+&kp TAB    &kp Q  &kp W  &kp E   &kp R    &kp T        &kp Y     &kp U      &kp I      &kp O    &kp P     &kp BSPC
+&kp LCTRL  &kp A  &kp S  &kp D   &kp F    &kp G        &kp H     &kp J      &kp K      &kp L    &kp SEMI  &kp ENTER
+&kp LSHFT  &kp Z  &kp X  &kp C   &kp V    &kp B        &kp N     &kp M      &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
+                         &trans  &kp ESC  &kp SPACE    &kp BSPC  &kp ENTER  &trans
             >;
         };
     };
