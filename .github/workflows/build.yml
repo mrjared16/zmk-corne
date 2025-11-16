@@ -2,8 +2,8 @@ name: Build ZMK firmware
 
 # Build on push to any branch, PRs, and manual dispatch
 # Key branches:
-#   - claude/homerow-mod-research-*: Original mod-tap implementation
-#   - claude/homerow-urob-style-*: urob's "timeless" positional homerow mods
+#   - claude/homerow-hold_tap-*: Original mod-tap implementation
+#   - claude/homerow-urob-*: urob's "timeless" positional homerow mods (RECOMMENDED)
 on:
   push:
     branches:

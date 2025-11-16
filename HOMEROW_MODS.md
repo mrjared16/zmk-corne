@@ -4,7 +4,7 @@ This repository maintains **two separate branches** with different homerow mod i
 
 ## Branch Overview
 
-### 1. `claude/homerow-mod-research-*` - Basic Mod-Tap
+### 1. `claude/homerow-hold_tap-*` - Basic Mod-Tap
 **Current implementation using standard ZMK mod-tap (`&mt`)**
 
 **Characteristics:**
@@ -25,7 +25,7 @@ This repository maintains **two separate branches** with different homerow mod i
 
 ---
 
-### 2. `claude/homerow-urob-style-*` - urob's "Timeless" Homerow Mods
+### 2. `claude/homerow-urob-*` - urob's "Timeless" Homerow Mods ⭐ **RECOMMENDED**
 **Advanced implementation using positional hold-tap behaviors**
 
 Based on: https://github.com/urob/zmk-config
@@ -67,12 +67,12 @@ hold-trigger-on-release          // Allows same-hand modifier combos
 
 ## Which Branch Should I Use?
 
-### Use `homerow-mod-research` if:
+### Use `claude/homerow-hold_tap-*` if:
 - You're just starting with homerow mods
 - You want something simple and predictable
 - You don't mind occasional false triggers
 
-### Use `homerow-urob-style` if:
+### Use `claude/homerow-urob-*` if: ⭐ **RECOMMENDED**
 - You're experiencing false triggers with basic mod-tap
 - You want to combine modifiers (Ctrl+Shift, etc.)
 - You type quickly and want zero delay
@@ -117,6 +117,28 @@ Both branches automatically build firmware via GitHub Actions on push.
 **Artifact names:**
 - `corne_left_studio.uf2`
 - `corne_right_studio.uf2`
+
+**GitHub Actions:**
+- Check build status: https://github.com/mrjared16/zmk-corne/actions
+- Builds run automatically on every push to `claude/*` branches
+- Download firmware from the "Artifacts" section of completed builds
+
+---
+
+## Merging to Master (Optional)
+
+To make the urob implementation the default on `master`:
+
+```bash
+git checkout master
+git merge claude/homerow-urob-0118wJLzBE4oMtLtp8x9o2UG --no-ff
+git push origin master
+```
+
+Or create a Pull Request on GitHub:
+1. Go to: https://github.com/mrjared16/zmk-corne/compare
+2. Base: `master` ← Compare: `claude/homerow-urob-*`
+3. Create PR and merge
 
 ---
 
