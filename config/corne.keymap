@@ -5,9 +5,9 @@
  */
 
 // Mouse speed settings - must be defined BEFORE includes
-// Tuned to match Kanata config (720-750 movement, 20-100 scroll)
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200  // High speed for mouse movement
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 80    // Fast scrolling (matches Kanata)
+// Tuned to match Kanata config: scroll perfect at 80, pointer at half speed
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 600   // Mouse movement (reduced from 1200)
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 80    // Fast scrolling (perfect, keep as is)
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
@@ -61,16 +61,16 @@
 
         /*
          * Custom mouse behaviors with acceleration
-         * Tuned for fast response to match Kanata feel
-         * - Faster time-to-max-speed for immediate response
-         * - Exponential acceleration for smooth control
+         * Tuned for balanced response: slower movement, fast scroll
+         * - Moderate acceleration for precise control
+         * - Exponential curve for smooth ramping
          */
         mmv_accel: mouse_move_accel {
             compatible = "zmk,behavior-input-two-axis";
             #binding-cells = <1>;
             x-input-code = <INPUT_REL_X>;
             y-input-code = <INPUT_REL_Y>;
-            time-to-max-speed-ms = <300>;  // Faster acceleration (was 500)
+            time-to-max-speed-ms = <600>;  // Slower acceleration for control (was 300)
             acceleration-exponent = <1>;   // Exponential curve
         };
 
