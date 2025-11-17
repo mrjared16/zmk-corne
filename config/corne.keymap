@@ -53,6 +53,55 @@
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
         };
+
+        /*
+         * Custom mouse behaviors with acceleration
+         * Based on urob's configuration adapted from Kanata settings
+         */
+        mmv_accel: mouse_move_accel {
+            compatible = "zmk,behavior-input-two-axis";
+            #binding-cells = <1>;
+            x-input-code = <INPUT_REL_X>;
+            y-input-code = <INPUT_REL_Y>;
+            time-to-max-speed-ms = <500>;
+            acceleration-exponent = <1>;
+        };
+
+        msc_accel: mouse_scroll_accel {
+            compatible = "zmk,behavior-input-two-axis";
+            #binding-cells = <1>;
+            x-input-code = <INPUT_REL_HWHEEL>;
+            y-input-code = <INPUT_REL_WHEEL>;
+            time-to-max-speed-ms = <300>;
+            acceleration-exponent = <0>;
+            delay-ms = <0>;
+        };
+
+        /*
+         * LLM macro hold-tap
+         * Tap = custom_script_2 (types "2:" - more frequent)
+         * Hold = custom_script_1 (types "1:")
+         */
+        llm_ht: llm_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&custom_script_1>, <&custom_script_2>;
+        };
+
+        /*
+         * Shift + Toggle Layer hold-tap
+         * Hold = Right Shift
+         * Tap = Toggle Layer 1 (Nav)
+         */
+        shift_tog: shift_toggle {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp>, <&tog>;
+        };
     };
 
     combos {
@@ -84,7 +133,9 @@
             bindings =
                 <&kp LG(LS(O))>,
                 <&macro_wait_time 200>,
-                <&kp N1 &kp COLON>,
+                <&kp N1>,
+                <&macro_wait_time 10>,
+                <&kp COLON>,
                 <&macro_wait_time 10>,
                 <&kp LC(LS(V))>;
 
@@ -97,7 +148,9 @@
             bindings =
                 <&kp LG(LS(O))>,
                 <&macro_wait_time 200>,
-                <&kp N2 &kp COLON>,
+                <&kp N2>,
+                <&macro_wait_time 10>,
+                <&kp COLON>,
                 <&macro_wait_time 10>,
                 <&kp LC(LS(V))>;
 
@@ -120,27 +173,34 @@
             // Note: Using urob's "timeless" homerow mods (hml/hmr) instead of basic mod-tap (mt)
 
             bindings = <
-&lt 4 TAB         &kp Q  &kp W            &kp E            &kp R            &kp T          &kp Y          &kp U             &kp I            &kp O             &kp P          &kp DELETE
-&mt RCTRL ESCAPE  &kp A  &hml LEFT_GUI S  &hml LCTRL D     &hml LEFT_ALT F  &kp G          &kp H          &hmr RIGHT_ALT J  &hmr RCTRL K     &hmr RIGHT_GUI L  &kp SEMICOLON  &kp SQT
-&kp LSHFT         &kp Z  &kp X            &kp C            &kp V            &kp B          &kp N          &kp M             &kp COMMA        &kp DOT           &kp FSLH       &tog 1
-                                          &lt 4 LC(SPACE)  &lt 2 LC(A)      &lt 1 SPACE    &kp BACKSPACE  &lt 2 ENTER       &sk RIGHT_SHIFT
+&lt 4 TAB         &kp Q  &kp W            &kp E            &kp R            &kp T          &kp Y            &kp U             &kp I            &kp O             &kp P                 &kp DELETE
+&mt RCTRL ESCAPE  &kp A  &hml LEFT_GUI S  &hml LCTRL D     &hml LEFT_ALT F  &kp G          &kp H            &hmr RIGHT_ALT J  &hmr RCTRL K     &hmr RIGHT_GUI L  &hmr RSHIFT SEMICOLON  &kp SQT
+&kp LSHFT         &kp Z  &kp X            &kp C            &kp V            &kp B          &kp N            &kp M             &kp COMMA        &kp DOT           &kp FSLH              &shift_tog RSHIFT 1
+                                          &lt 4 LC(SPACE)  &lt 2 LC(A)      &lt 1 SPACE    &lt 1 BACKSPACE  &lt 2 ENTER       &llm_ht 0 0
             >;
         };
 
         lower_layer {
-            display-name = "Lower Layer";
+            display-name = "Nav";
 
             // -----------------------------------------------------------------------------------------
-            // |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
-            // | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
-            // | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-            //                    | GUI |     | SPC |   | ENT |     | ALT |
+            // Optimized Nav Layer - Vim-centric design
+            // Row 1: Numbers 1-5 | 6-0, HOME
+            // Row 2: 0, $, C-D, C-U, tmux | Arrows, END (below HOME)
+            // Row 3: ^, B, W, 0 (dup), C-W | C-N, C-P, {, }
+            //
+            // Key improvements:
+            // - C-D and C-U adjacent (pos 15-16) for ergonomic scrolling
+            // - C-N and C-P together (pos 30-31) for completion/nav
+            // - Duplicate 0 (pos 13, 28) for symmetry and 0w optimization
+            // - B before W (pos 26-27) for mental model
+            // - END below HOME for vertical alignment
 
             bindings = <
-&trans  &kp N1  &kp N2      &kp N3          &kp N4           &kp N5       &kp N6     &kp N7            &kp N8            &kp N9     &kp N0   &kp HOME
-&trans  &kp N0  &kp DOLLAR  &kp CARET       &tmux_copy       &kp LC(U)    &kp LEFT   &kp DOWN          &kp UP            &kp RIGHT  &kp DEL  &kp END
-&trans  &kp W   &kp B       &kp LEFT_BRACE  &kp RIGHT_BRACE  &kp LC(D)    &kp LC(W)  &custom_script_1  &custom_script_2  &trans     &trans   &trans
-                            &trans          &trans           &trans       &trans     &trans            &trans
+&trans  &kp N1     &kp N2      &kp N3      &kp N4      &kp N5        &kp N6     &kp N7      &kp N8           &kp N9             &kp N0   &kp HOME
+&trans  &kp N0     &kp DOLLAR  &kp LC(D)   &kp LC(U)   &tmux_copy    &kp LEFT   &kp DOWN    &kp UP           &kp RIGHT          &trans   &kp END
+&trans  &kp CARET  &kp B       &kp W       &kp N0      &kp LC(W)     &kp LC(N)  &kp LC(P)   &kp LEFT_BRACE   &kp RIGHT_BRACE    &trans   &trans
+                               &trans      &trans      &trans        &trans     &trans      &trans
             >;
         };
 
@@ -155,8 +215,8 @@
 
             bindings = <
 &trans  &kp EXCL        &kp AT           &kp HASH              &kp DLLR               &kp PRCNT    &kp CARET      &kp AMPS           &kp ASTRK         &kp TILDE      &kp GRAVE         &trans
-&trans  &kp LEFT_BRACE  &kp RIGHT_BRACE  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EQUAL    &kp COLON      &kp DOUBLE_QUOTES  &kp SINGLE_QUOTE  &kp LESS_THAN  &kp GREATER_THAN  &trans
-&trans  &kp BACKSLASH   &kp PIPE         &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PLUS     &kp SEMICOLON  &kp MINUS          &kp UNDERSCORE    &kp SLASH      &kp QUESTION      &trans
+&trans  &kp LEFT_BRACE  &kp RIGHT_BRACE  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EQUAL    &kp SEMICOLON  &kp DOUBLE_QUOTES  &kp SINGLE_QUOTE  &kp LESS_THAN  &kp GREATER_THAN  &trans
+&trans  &kp BACKSLASH   &kp PIPE         &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PLUS     &kp COLON      &kp MINUS          &kp UNDERSCORE    &kp SLASH      &kp QUESTION      &trans
                                          &trans                &trans                 &trans       &trans         &trans             &trans
             >;
         };
@@ -172,10 +232,10 @@
 
         layer_4 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans          &msc SCRL_UP    &mmv MOVE_UP    &trans           &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &msc SCRL_DOWN  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &mkp LCLK       &mkp RCLK       &trans          &trans           &trans  &trans
-                        &trans  &trans  &trans    &trans          &trans          &trans
+&trans  &trans  &trans  &trans          &trans         &trans    &trans          &msc SCRL_UP    &mmv MOVE_UP    &trans           &trans  &trans
+&trans  &trans  &trans  &msc SCRL_DOWN  &msc SCRL_UP   &trans    &msc SCRL_DOWN  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &trans  &trans
+&trans  &trans  &trans  &trans          &trans         &trans    &mkp LCLK       &mkp RCLK       &trans          &trans           &trans  &trans
+                        &trans          &trans         &trans    &trans          &trans          &trans
             >;
         };
 
