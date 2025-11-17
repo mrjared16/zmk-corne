@@ -4,6 +4,11 @@
  * SPDX-License-Identifier: MIT
  */
 
+// Mouse speed settings - must be defined BEFORE includes
+// Tuned to match Kanata config (720-750 movement, 20-100 scroll)
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200  // High speed for mouse movement
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 80    // Fast scrolling (matches Kanata)
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
@@ -56,15 +61,17 @@
 
         /*
          * Custom mouse behaviors with acceleration
-         * Based on urob's configuration adapted from Kanata settings
+         * Tuned for fast response to match Kanata feel
+         * - Faster time-to-max-speed for immediate response
+         * - Exponential acceleration for smooth control
          */
         mmv_accel: mouse_move_accel {
             compatible = "zmk,behavior-input-two-axis";
             #binding-cells = <1>;
             x-input-code = <INPUT_REL_X>;
             y-input-code = <INPUT_REL_Y>;
-            time-to-max-speed-ms = <500>;
-            acceleration-exponent = <1>;
+            time-to-max-speed-ms = <300>;  // Faster acceleration (was 500)
+            acceleration-exponent = <1>;   // Exponential curve
         };
 
         msc_accel: mouse_scroll_accel {
@@ -72,8 +79,8 @@
             #binding-cells = <1>;
             x-input-code = <INPUT_REL_HWHEEL>;
             y-input-code = <INPUT_REL_WHEEL>;
-            time-to-max-speed-ms = <300>;
-            acceleration-exponent = <0>;
+            time-to-max-speed-ms = <40>;   // Very fast for scrolling (was 300)
+            acceleration-exponent = <0>;   // Linear for predictable scrolling
             delay-ms = <0>;
         };
 
@@ -101,6 +108,19 @@
             flavor = "hold-preferred";
             tapping-term-ms = <200>;
             bindings = <&kp>, <&tog>;
+        };
+
+        /*
+         * Tab tap-dance with mouse layer
+         * Single-tap = Tab
+         * Double-tap = Toggle Layer 4 (Mouse)
+         * Hold = Layer 4 (momentary)
+         */
+        td_tab: tap_dance_tab {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&lt 4 TAB>, <&tog 4>;
         };
     };
 
@@ -132,11 +152,11 @@
             #binding-cells = <0>;
             bindings =
                 <&kp LG(LS(O))>,
-                <&macro_wait_time 200>,
+                <&macro_wait_time 500>,
                 <&kp N1>,
-                <&macro_wait_time 10>,
+                <&macro_wait_time 50>,
                 <&kp COLON>,
-                <&macro_wait_time 10>,
+                <&macro_wait_time 50>,
                 <&kp LC(LS(V))>;
 
             label = "CUSTOM_SCRIPT_1";
@@ -147,11 +167,11 @@
             #binding-cells = <0>;
             bindings =
                 <&kp LG(LS(O))>,
-                <&macro_wait_time 200>,
+                <&macro_wait_time 500>,
                 <&kp N2>,
-                <&macro_wait_time 10>,
+                <&macro_wait_time 50>,
                 <&kp COLON>,
-                <&macro_wait_time 10>,
+                <&macro_wait_time 50>,
                 <&kp LC(LS(V))>;
 
             label = "CUSTOM_SCRIPT_2";
@@ -173,7 +193,7 @@
             // Note: Using urob's "timeless" homerow mods (hml/hmr) instead of basic mod-tap (mt)
 
             bindings = <
-&lt 4 TAB         &kp Q  &kp W            &kp E            &kp R            &kp T          &kp Y            &kp U             &kp I            &kp O             &kp P                 &kp DELETE
+&td_tab           &kp Q  &kp W            &kp E            &kp R            &kp T          &kp Y            &kp U             &kp I            &kp O             &kp P                 &kp DELETE
 &mt RCTRL ESCAPE  &kp A  &hml LEFT_GUI S  &hml LCTRL D     &hml LEFT_ALT F  &kp G          &kp H            &hmr RIGHT_ALT J  &hmr RCTRL K     &hmr RIGHT_GUI L  &hmr RSHIFT SEMICOLON  &kp SQT
 &kp LSHFT         &kp Z  &kp X            &kp C            &kp V            &kp B          &kp N            &kp M             &kp COMMA        &kp DOT           &kp FSLH              &shift_tog RSHIFT 1
                                           &lt 4 LC(SPACE)  &lt 2 LC(A)      &lt 1 SPACE    &lt 1 BACKSPACE  &lt 2 ENTER       &llm_ht 0 0
@@ -235,7 +255,7 @@
 &trans  &trans  &trans  &trans          &trans         &trans    &trans          &msc SCRL_UP    &mmv MOVE_UP    &trans           &trans  &trans
 &trans  &trans  &trans  &msc SCRL_DOWN  &msc SCRL_UP   &trans    &msc SCRL_DOWN  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &trans  &trans
 &trans  &trans  &trans  &trans          &trans         &trans    &mkp LCLK       &mkp RCLK       &trans          &trans           &trans  &trans
-                        &trans          &trans         &trans    &trans          &trans          &trans
+                        &trans          &trans         &mkp LCLK &mkp RCLK       &trans          &trans
             >;
         };
 
