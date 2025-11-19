@@ -193,7 +193,7 @@
             // Note: Using urob's "timeless" homerow mods (hml/hmr) instead of basic mod-tap (mt)
 
             bindings = <
-&td_tab           &kp Q  &kp W            &kp E            &kp R            &kp T          &kp Y            &kp U             &kp I            &kp O             &kp P                 &kp DELETE
+&td_tab           &kp Q  &kp W            &kp E            &kp R            &kp T          &kp Y            &kp U             &kp I            &kp O             &kp P                 &kp MINUS
 &mt RCTRL ESCAPE  &kp A  &hml LEFT_GUI S  &hml LCTRL D     &hml LEFT_ALT F  &kp G          &kp H            &hmr RIGHT_ALT J  &hmr RCTRL K     &hmr RIGHT_GUI L  &hmr RSHIFT SEMICOLON  &kp SQT
 &kp LSHFT         &kp Z  &kp X            &kp C            &kp V            &kp B          &kp N            &kp M             &kp COMMA        &kp DOT           &kp FSLH              &shift_tog RSHIFT 1
                                           &lt 4 LC(SPACE)  &lt 2 LC(A)      &lt 1 SPACE    &lt 1 BACKSPACE  &lt 2 ENTER       &llm_ht 0 0
@@ -237,7 +237,7 @@
 &trans  &kp EXCL        &kp AT           &kp HASH              &kp DLLR               &kp PRCNT    &kp CARET      &kp AMPS           &kp ASTRK         &kp TILDE      &kp GRAVE         &trans
 &trans  &kp LEFT_BRACE  &kp RIGHT_BRACE  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EQUAL    &kp SEMICOLON  &kp DOUBLE_QUOTES  &kp SINGLE_QUOTE  &kp LESS_THAN  &kp GREATER_THAN  &trans
 &trans  &kp BACKSLASH   &kp PIPE         &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PLUS     &kp COLON      &kp MINUS          &kp UNDERSCORE    &kp SLASH      &kp QUESTION      &trans
-                                         &trans                &trans                 &trans       &trans         &trans             &trans
+                                         &trans                &trans                 &trans       &kp DELETE     &trans             &trans
             >;
         };
 
