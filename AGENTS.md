@@ -76,7 +76,8 @@ Speed: 100 WPM baseline → 50-60 WPM (week 1, adapting)
 Homerow mods:        280ms tapping-term
                      150ms require-prior-idle (prevents false trigger)
 
-Macros (firmware):   500ms initial wait (app launch)
+Macros (firmware):   650ms initial wait (app launch)
+                     100ms hold time (trigger reliability)
                      50ms inter-keystroke
 
 Tap-dance:           200ms
@@ -89,7 +90,7 @@ Mouse:               600 velocity movement
 
 ## Common Pitfalls
 
-❌ **Don't copy Kanata timing** - 200ms fails in ZMK, needs 500ms
+❌ **Don't copy Kanata timing** - 200ms fails in ZMK, needs 650ms + 100ms hold
 ❌ **Don't put dash on layer** - Research shows universal pain point for CLI users
 ❌ **Don't use same-finger sequences** - 0@13→W@25 awkward, use 0@28→W@26 roll
 ❌ **Don't change scroll positions** - L1:15-16 and L4:15-16 must match for muscle memory
