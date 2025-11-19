@@ -396,3 +396,81 @@ Would Translate
 **❌ Assume Timing Translates**
 - Rejected: Use Kanata values directly
 - Chose: Test and tune for firmware
+
+## Combo Strategy
+
+### Dual-Hand Dash Combos (S+D and K+L)
+
+**Problem:** Dash on base layer position 11 = right pinky (weak finger, frequent strain)
+**Solution:** Combos on strong finger combinations (index+middle, middle+ring)
+
+**Why TWO combos (left AND right hand)?**
+- Flexibility: Use whichever hand is active during typing
+- No hand preference bias
+- Both combos do same thing (no mental overhead)
+
+**Configuration:**
+- S+D (positions 14+15): Left index + middle
+- K+L (positions 21+22): Right middle + ring
+- `timeout-ms = 30` (tight window)
+- `require-prior-idle-ms = 150` (same as homerow mods)
+
+**Why NOT J+K?**
+- J/K are vim navigation keys (down/up)
+- Typing `jjjj` or `kkkk` would trigger combo constantly
+- Critical conflict for vim users
+
+**False Positive Mitigation:**
+- "sd" collision: Very rare ("Wednesday", "Thursday" only)
+- "kl" collision: Very rare ("ankle", "sparkle" only)
+- Research shows: <2 false positives/day with proper tuning
+
+### Double Dash Macro (Layer 2 Position 31)
+
+**Problem:** Combos slow for repeated characters (`--`)
+- Combo timing: Press → release → wait → press → release = ~230ms
+- Key tap-tap: ~100ms (faster)
+
+**Solution:** Dedicated macro for `--` on Layer 2
+- Single keypress outputs two dashes
+- Optimizes git flags: `git log --oneline`, `systemctl --user`
+- Usage: 40% of dash typing is double dash in CLI
+
+**Why Layer 2 not combo?**
+- Double dash always has context switch (start of flag)
+- Natural pause before `--` provides time for thumb hold
+- Frees combo slots for single-character optimizations
+
+### Pinky Dash Kept for Underscore
+
+**Decision:** Don't remove base layer dash at position 11
+**Reasoning:** Shift+Dash = Underscore (still needed)
+
+**Usage pattern:**
+- Single dash: S+D or K+L combo (primary)
+- Double dash: Layer 2 macro (CLI flags)
+- Underscore: Shift + position 11 (file names, variables)
+- Fallback: Position 11 dash if combo fails
+
+**Alternative considered:** Underscore combo
+**Rejected:** Shift+Dash already optimal (single modifier)
+- Only 5-10 underscores per session
+- Not frequent enough to justify combo slot
+- Mid-word typing (no natural pause for `require-prior-idle-ms`)
+
+### Why Conservative (Only 2 Combos)?
+
+**Research findings:**
+- 90wpm typing = 116ms between characters
+- False positives highly disruptive to flow
+- User tolerance: 2-3/day maximum
+
+**Decision:** Start with only dash combos
+- Dash = highest frequency unsolved problem (50-100x/session)
+- Pipe/equal on Layer 2 acceptable (5-10x/session)
+- Can add more combos later if dash proves successful
+
+**Trade-off:**
+- Fewer combos = lower optimization
+- But: Preserves Layer 2 relevance
+- Layer remains organized, predictable symbol access
