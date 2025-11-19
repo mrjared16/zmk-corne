@@ -151,7 +151,7 @@
         combo_dash_right {
             timeout-ms = <30>;
             require-prior-idle-ms = <150>;
-            key-positions = <21 22>;  // K+L home row
+            key-positions = <20 21>;  // K+L home row (pos 20=K, 21=L)
             bindings = <&kp MINUS>;
             layers = <0>;
         };
@@ -170,9 +170,7 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings =
-                <&macro_press &kp LG(LS(O))>,
-                <&macro_wait_time 100>,
-                <&macro_release &kp LG(LS(O))>,
+                <&macro_tap &kp LG(LS(O))>,
                 <&macro_wait_time 650>,
                 <&kp N1>,
                 <&macro_wait_time 50>,
@@ -187,9 +185,7 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings =
-                <&macro_press &kp LG(LS(O))>,
-                <&macro_wait_time 100>,
-                <&macro_release &kp LG(LS(O))>,
+                <&macro_tap &kp LG(LS(O))>,
                 <&macro_wait_time 650>,
                 <&kp N2>,
                 <&macro_wait_time 50>,
