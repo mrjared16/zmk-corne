@@ -169,30 +169,18 @@
         custom_script_1: custom_script_1 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings =
-                <&macro_tap &kp LG(LS(O))>,
-                <&macro_wait_time 650>,
-                <&kp N1>,
-                <&macro_wait_time 50>,
-                <&kp COLON>,
-                <&macro_wait_time 50>,
-                <&kp LC(LS(V))>;
-
+            wait-ms = <30>;
+            tap-ms = <40>;
+            bindings = <&macro_wait_time 500>, <&kp LG(LS(O))>, <&macro_wait_time 30>, <&kp N1>, <&kp COLON>, <&kp LC(LS(V))>;
             label = "CUSTOM_SCRIPT_1";
         };
 
         custom_script_2: custom_script_2 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings =
-                <&macro_tap &kp LG(LS(O))>,
-                <&macro_wait_time 650>,
-                <&kp N2>,
-                <&macro_wait_time 50>,
-                <&kp COLON>,
-                <&macro_wait_time 50>,
-                <&kp LC(LS(V))>;
-
+            wait-ms = <30>;
+            tap-ms = <40>;
+            bindings = <&macro_wait_time 500>, <&kp LG(LS(O))>, <&macro_wait_time 30>, <&kp N2>, <&kp COLON>, <&kp LC(LS(V))>;
             label = "CUSTOM_SCRIPT_2";
         };
 
