@@ -76,9 +76,9 @@ Speed: 100 WPM baseline → 50-60 WPM (week 1, adapting)
 Homerow mods:        280ms tapping-term
                      150ms require-prior-idle (prevents false trigger)
 
-Macros (firmware):   500ms initial wait (app launch)
-                     50ms inter-keystroke
-                     Single-line format required
+Macros (firmware):   250ms initial wait (app launch)
+                     30ms inter-keystroke
+                     macro_wait_time BEFORE keypress with delay after
 
 Tap-dance:           200ms
 
@@ -90,7 +90,8 @@ Mouse:               600 velocity movement
 
 ## Common Pitfalls
 
-❌ **Don't copy Kanata timing** - 200ms works in userspace, firmware needs 500ms
+❌ **Don't copy Kanata timing** - 200ms works in userspace, firmware needs 250ms
+❌ **Don't put macro_wait_time after keypress** - Place BEFORE the keypress that needs delay
 ❌ **Don't put dash on layer** - Research shows universal pain point for CLI users
 ❌ **Don't use same-finger sequences** - 0@13→W@25 awkward, use 0@28→W@26 roll
 ❌ **Don't change scroll positions** - L1:15-16 and L4:15-16 must match for muscle memory

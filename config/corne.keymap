@@ -171,7 +171,7 @@
             #binding-cells = <0>;
             wait-ms = <30>;
             tap-ms = <40>;
-            bindings = <&macro_wait_time 500>, <&kp LG(LS(O))>, <&macro_wait_time 30>, <&kp N1>, <&kp COLON>, <&kp LC(LS(V))>;
+            bindings = <&macro_wait_time 250>, <&kp LG(LS(O))>, <&macro_wait_time 30>, <&kp N1>, <&kp COLON>, <&kp LC(LS(V))>;
             label = "CUSTOM_SCRIPT_1";
         };
 
@@ -180,7 +180,7 @@
             #binding-cells = <0>;
             wait-ms = <30>;
             tap-ms = <40>;
-            bindings = <&macro_wait_time 500>, <&kp LG(LS(O))>, <&macro_wait_time 30>, <&kp N2>, <&kp COLON>, <&kp LC(LS(V))>;
+            bindings = <&macro_wait_time 250>, <&kp LG(LS(O))>, <&macro_wait_time 30>, <&kp N2>, <&kp COLON>, <&kp LC(LS(V))>;
             label = "CUSTOM_SCRIPT_2";
         };
 
