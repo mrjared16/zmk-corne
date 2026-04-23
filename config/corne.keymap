@@ -6,7 +6,7 @@
 // Mouse speed settings - must be defined BEFORE includes
 // Tuned to match Kanata config: scroll perfect at 80, pointer at half speed
 
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 600   // Mouse movement (reduced from 1200)
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 900   // Mouse movement (slightly faster)
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 80    // Fast scrolling (perfect, keep as is)
 
 #include <behaviors.dtsi>
@@ -115,7 +115,7 @@
             #binding-cells = <1>;
             x-input-code = <INPUT_REL_X>;
             y-input-code = <INPUT_REL_Y>;
-            time-to-max-speed-ms = <600>;  // Slower acceleration for control (was 300)
+            time-to-max-speed-ms = <400>;  // Faster acceleration to max
             acceleration-exponent = <1>;   // Exponential curve
         };
 
